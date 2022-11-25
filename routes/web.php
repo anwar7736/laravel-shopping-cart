@@ -14,18 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('products.index');
 });
 
-Route::name('cart.')->group(function(){
+Route::group(['prefix'=> 'cart', 'as' => 'cart.'],function(){
     Route::resource('session', \App\Http\Controllers\Frontend\CartController::class);
     Route::resource('package', \App\Http\Controllers\Frontend\CartPackageController::class);
 });
 
-Route::name('checkout.')->group(function(){
+Route::resource('products', \App\Http\Controllers\Frontend\ProductController::class);
+
+Route::group(['as' => 'checkout.', ],function(){
     Route::post('session', [\App\Http\Controllers\Frontend\CheckoutController::class, 'checkout'])->name('session');
     Route::post('package', [\App\Http\Controllers\Frontend\CheckoutPackageController::class, 'checkout'])->name('package');
 });
 
-
-Route::get('/check', [\App\Http\Controllers\Frontend\CartController::class, 'index']);

@@ -1,10 +1,12 @@
 <?php
 namespace App\Utils;
+use App\Models\ProductStock;
 
 class Util {
-    public static function checkStock($product_id)
+    public static function checkStock($id)
     {
-        return "Product ID : ".$product_id;
+        $stock = ProductStock::where(['product_id' => $id])->first();
+        return $stock->quantity;
     }
     
     public static function increaseStock()
@@ -12,9 +14,11 @@ class Util {
         
     }
     
-    public static function decreaseStock()
+    public static function decreaseStock($id, $qty)
     {
+        ProductStock::where(['product_id' => $id])->update(['quantity'=>$qty]);
         
+        return true;
     } 
     
     public static function updateStock()
