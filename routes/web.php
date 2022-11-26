@@ -29,3 +29,4 @@ Route::group(['as' => 'checkout.', ],function(){
     Route::post('package', [\App\Http\Controllers\Frontend\CheckoutPackageController::class, 'checkout'])->name('package');
 });
 
+Route::get('data-tables', [\App\Http\Controllers\DataTableController::class, 'viewAll'])->name('data-table.show');

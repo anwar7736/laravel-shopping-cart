@@ -8,15 +8,17 @@
     <title>@yield('title', 'Laravel-Shopping-Cart')</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}"/>
     @stack('css')
 </head>
-<body class="bg-secondary">
+<body class="bg-success">
     @include('layouts.header')
     @yield('content')
     @include('layouts.footer')
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/cart.js') }}"></script>
     <script src="{{ asset('js/cart-package.js') }}"></script>
     <script src="{{ asset('js/checkout.js') }}"></script>
