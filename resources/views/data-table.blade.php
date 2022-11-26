@@ -4,7 +4,7 @@
 <div class="container-fluid">
 <div class="table-responsive">
     <div class="filter-section row">
-    <div class="col-md-3">
+        <div class="col-md-3">
             <label class="text-light" for="city">Filter By City</label>
             <select name="city" id="city" class="form-control">
                 <option value="" disabled selected>Choose City</option>
@@ -38,6 +38,22 @@
         <div class="col-md-1 mt-4">
             <button class="btn btn-light form-control clearDate">Clear</button>
         </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-2 mt-3">
+            <a href="{{ route('excel.export') }}" class="btn btn-primary">Export to Excel</a>
+        </div>           
+        <div class="col-md-2 mt-3">
+            <a href="javascript:void(0)" class="btn btn-light userImportBtn">Import User</a>
+        </div>             
+        <div class="col-md-2 mt-3 import-user-section d-none">
+            <a href="{{ route('excel.template.export') }}" class="btn btn-dark  mb-2 userImportBtn">Download Template File</a>
+            <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" id="userImportForm">
+                @csrf
+                <input class="form-control mb-2" type="file" id="user_list" name="user_list" >
+                <button type="submit" class="btn btn-danger mb-2 submitBtn px-5" accept=".xlsx,.xls,.csv" >Submit</button>
+            </form>
+        </div>     
     </div><br>
         <table class="table table-bordered table-striped bg-light text-dark userTable">
             <thead>
@@ -115,6 +131,63 @@
             {
                 userTable.ajax.reload()
             }
+
+            function toggleImportSection()
+            {
+              if($("div.import-user-section").hasClass('d-none'))
+               {
+                    $("div.import-user-section").removeClass('d-none');
+               }
+
+               else $("div.import-user-section").addClass('d-none');
+            }
+            $(".userImportBtn").click(function(){
+                toggleImportSection();
+            });
+
+            $("form#userImportForm").submit(function(e){
+                e.preventDefault();
+                let url = $(this).attr('action');
+                let method = $(this).attr('method');
+                $.ajax({
+                    url,
+                    method,
+                    data: new FormData(this),
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function()
+                    {
+                        $(".submitBtn").attr('disabled', true);
+                        $(".submitBtn").html('Please Wait....');
+                    },
+                    success: function(res)
+                    {
+                        if(res.success)
+                        {
+                            toastr.success(res.msg);
+                            toggleImportSection();
+                            refresh_table();
+                            $(".submitBtn").attr('disabled', false);
+                            $(".submitBtn").html('Submit');
+                        }
+                        else {
+                            $(".submitBtn").attr('disabled', false);
+                            $(".submitBtn").html('Submit');
+                            toastr.error(res.msg);
+                            
+                        }
+                      
+                    },
+                    error: function(res)
+                    {
+                        toastr.error(res.msg);
+                        $(".submitBtn").attr('disabled', false);
+                        $(".submitBtn").html('Submit');
+                    }
+
+                });
+            });
         });
     </script>
 @endpush
