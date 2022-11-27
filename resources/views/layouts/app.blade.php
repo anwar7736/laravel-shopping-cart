@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}"/>
     @stack('css')
 </head>
 <body class="bg-success">
@@ -23,6 +24,9 @@
     <script src="{{ asset('js/cart-package.js') }}"></script>
     <script src="{{ asset('js/checkout.js') }}"></script>
     <script src="{{ asset('js/checkout-package.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="{{ asset('js/user.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     <script>
         $.ajaxSetup({
         headers: {

@@ -45,9 +45,9 @@ class DataTableController extends Controller
             return DataTables::of($users)
             ->addColumn('action', function($user){
                 $button = "";
-                 $button .= "<a class='btn btn-sm btn-success' href='#'>Edit</a>";
+                 $button .= "<button class='btn btn-sm btn-success edit' data-id='{$user->id}'>Edit</button>";
                  $button .="&nbsp;&nbsp;";
-                 $button .= "<a class='btn btn-sm btn-danger' href='#'>Delete</a>";
+                 $button .= "<button class='btn btn-sm btn-danger delete' data-id='{$user->id}'>Delete</button>";
 
                 return $button;
             })

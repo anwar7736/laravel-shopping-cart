@@ -37,3 +37,8 @@ Route::get('export-to-excel', [\App\Http\Controllers\DataTableController::class,
 Route::get('export-user-template', [\App\Http\Controllers\DataTableController::class, 'ExportUserTemplate'])->name('excel.template.export');
 #Import
 Route::post('import-user-list', [\App\Http\Controllers\DataTableController::class, 'UserImport'])->name('users.import');
+
+Route::resource('user', \App\Http\Controllers\UserController::class);
+
+Route::post('user/update/{id}', [\App\Http\Controllers\UserController::class, 'update']);
+Route::get('user/destroy/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
