@@ -42,3 +42,6 @@ Route::resource('user', \App\Http\Controllers\UserController::class);
 
 Route::post('user/update/{id}', [\App\Http\Controllers\UserController::class, 'update']);
 Route::get('user/destroy/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
+
+Route::get('file-upload', [\App\Http\Controllers\FileUploadController::class, 'index']);
+Route::post('file/upload', [\App\Http\Controllers\FileUploadController::class, 'upload'])->name('upload.file');

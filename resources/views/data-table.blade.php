@@ -47,6 +47,9 @@
             <a href="javascript:void(0)" class="btn btn-light userImportBtn">Import User</a>
         </div>             
         <div class="col-md-2 mt-3 import-user-section d-none">
+            <div class="progress mb-2">
+                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%">0%</div>
+            </div>
             <a href="{{ route('excel.template.export') }}" class="btn btn-dark  mb-2 userImportBtn">Download Template File</a>
             <form action="{{ route('users.import') }}" method="POST" enctype="multipart/form-data" id="userImportForm">
                 @csrf

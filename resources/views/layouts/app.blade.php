@@ -27,6 +27,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('js/user.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.form.js') }}"></script>
     <script>
         $.ajaxSetup({
         headers: {
