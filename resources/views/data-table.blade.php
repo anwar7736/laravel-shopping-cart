@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('title', 'Laravel Yajra DataTables')
 @section('content')
 <div class="container-fluid">
@@ -58,7 +58,8 @@
             </form>
         </div>   
         <div class="col-md-8" align="right">
-        <button type="button" class="btn btn-info addUserBtn" data-toggle="modal" data-target="#exampleModal" >Add User</button>
+        <button type="button" class="btn btn-info addUserBtn" data-toggle="modal" data-target="#exampleModal" >Add User</button> 
+        <a href="{{ route('user.create') }}" class="btn btn-dark addMultiUserBtn">Add Multiple User</a>
         </div>  
     </div><br>
         <table class="table table-bordered table-striped bg-light text-dark userTable">
@@ -70,7 +71,11 @@
                     <th>Gender</th>
                     <th>City</th>
                     <th>Registered At</th>
-                    <th>Action</th>
+                    <th>
+                        Action 
+                        <label><input type="checkbox" id="all" /> All</label>
+                        <button class="btn btn-danger btn-sm deleteMultiple">Delete</button> 
+                    </th>
                 </tr>
             </thead>
             <tbody>

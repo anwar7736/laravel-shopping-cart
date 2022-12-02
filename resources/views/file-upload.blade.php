@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('title', 'File Upload')
 @section('content')
     <div class="container card">

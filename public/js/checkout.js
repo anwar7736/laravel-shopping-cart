@@ -17,10 +17,15 @@ $(document).ready(function(){
                     $(document).find('sup#total_cart_item').text(res.total);
                     table_reload();
                 }
+
                 else {
                     $('button.checkOutBtn').attr('disabled', false);
                     toastr.error(res.msg);
                 }
+            },
+            error: function(err)
+            {
+                location.href = "/login";
             }
 
         });

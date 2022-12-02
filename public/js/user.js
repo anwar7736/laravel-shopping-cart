@@ -199,9 +199,167 @@ $(function(){
             
                 
             
-        }) 
+        });
 
+        $(document).on("change", "#all", function(){
+            if($(this).prop("checked"))
+            {
+                $(".user:checkbox").prop("checked", true);
+            }
+            else $(".user:checkbox").prop("checked", false);
+        });
+        
+        $(document).on("change", ".user", function(){
+            if($(".user:checked").length === $(".user:checkbox").length)
+            {
+                $("#all:checkbox").prop("checked", true);
+            }
 
+            else $("#all:checkbox").prop("checked", false);
+        });
+
+        $(document).on("click", ".deleteMultiple", function(){
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = [];
+                    $(".user:checkbox:checked").each(function(){
+                        id.push($(this).val());
+                    });
+
+                    if(id.length === 0)
+                    {
+                        toastr.error('Please select atleast one checkbox!');
+                    }
+                    else {
+                        $.ajax({
+                            url: "/multiple-delete",
+                            method: "POST",
+                            data : {id: id},
+                            success: function(res)
+                            {
+                                toastr.success(res.msg);
+                                $("#all:checkbox").prop("checked", false);
+                                $(".userTable").DataTable().ajax.reload();
+                            }
+                    });
+                    }
+                }
+              })
+        });
+
+        function addFirstRow()
+        {
+            let row = `<tr>
+                <td><input type="text" name="name[]" /></td>
+                <td><input type="email" name="email[]" /></td>
+                <td><input type="password" name="password[]" /></td>
+                <td>
+                    <select name="gender[]" class="form-control">
+                        <option value="Male">Male</optoin>
+                        <option value="Female">Female</optoin>
+                        <option value="Others">Others</optoin>
+                    </select>
+                </td>
+                <td>
+                    <select name="city[]" class="form-control">
+                        <option value="Dhaka">Dhaka</optoin>
+                        <option value="Khulna">Khulna</optoin>
+                        <option value="Rajshahi">Rajshahi</optoin>
+                        <option value="Rangpur">Rangpur</optoin>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-success addMore">Add</button>
+                </td>
+            </tr>`;
+            $(".add-multiple-user-table tbody").html(row);
+            
+        } 
+        function appendRow()
+        {
+            let row = `<tr>
+                <td><input type="text" name="name[]" /></td>
+                <td><input type="email" name="email[]" /></td>
+                <td><input type="password" name="password[]" /></td>
+                <td>
+                    <select name="gender[]" class="form-control">
+                        <option value="Male">Male</optoin>
+                        <option value="Female">Female</optoin>
+                        <option value="Others">Others</optoin>
+                    </select>
+                </td>
+                <td>
+                    <select name="city[]" class="form-control">
+                        <option value="Dhaka" selected>Dhaka</optoin>
+                        <option value="Khulna">Khulna</optoin>
+                        <option value="Rajshahi">Rajshahi</optoin>
+                        <option value="Rangpur">Rangpur</optoin>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove">X</button>
+                </td>
+            </tr>`;
+            $(".add-multiple-user-table tbody").append(row);
+            
+        }
+
+        addFirstRow();
+
+        $(document).on("click", ".addMore", function(){
+            appendRow();
+        }) ;
+        
+        $(document).on("click", ".remove", function(){
+            $(this).closest("tr").remove();
+        });
+
+        $(document).on("submit", "#addMultiUserForm", function(e){
+            e.preventDefault();
+            let url  = $(this).attr("action");
+            let method  = $(this).attr("method");
+            let data  = $(this).serialize();
+            
+            $.ajax({
+                url,
+                method,
+                data,
+                dataType: "JSON",
+                beforeSend: function()
+                {
+                    $(".submitBtn").attr("disabled", true);
+                },
+                success : function(res)
+                {
+                    $(".submitBtn").attr("disabled", false);
+                    if(res.success)
+                    {
+                       
+                        addFirstRow();
+                        toastr.success(res.msg);
+                        
+                    }
+                    else if(res.errors)
+                    {
+                       let len = res.errors.length;
+                       for(let count = 0; count < len; count++)
+                       {
+                            toastr.error(res.errors[count]);
+                       }
+                        
+                    }
+                }
+
+            });
+        });
         
         
 });

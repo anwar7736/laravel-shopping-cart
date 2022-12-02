@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->route('products.index');
+    return view('welcome');
 });
+
 
 Route::group(['prefix'=> 'cart', 'as' => 'cart.'],function(){
     Route::resource('session', \App\Http\Controllers\Frontend\CartController::class);
@@ -24,7 +25,7 @@ Route::group(['prefix'=> 'cart', 'as' => 'cart.'],function(){
 
 Route::resource('products', \App\Http\Controllers\Frontend\ProductController::class);
 
-Route::group(['as' => 'checkout.', ],function(){
+Route::group(['as' => 'checkout.', 'middleware'=>'auth'],function(){
     Route::post('session', [\App\Http\Controllers\Frontend\CheckoutController::class, 'checkout'])->name('session');
     Route::post('package', [\App\Http\Controllers\Frontend\CheckoutPackageController::class, 'checkout'])->name('package');
 });
@@ -39,9 +40,20 @@ Route::get('export-user-template', [\App\Http\Controllers\DataTableController::c
 Route::post('import-user-list', [\App\Http\Controllers\DataTableController::class, 'UserImport'])->name('users.import');
 
 Route::resource('user', \App\Http\Controllers\UserController::class);
+Route::post('multiple-insert', [\App\Http\Controllers\UserController::class, 'multipleInsert'])->name('insert.multiple');
+
+Route::post('multiple-delete', [\App\Http\Controllers\UserController::class, 'multipleDelete'])->name('delete.multiple');
 
 Route::post('user/update/{id}', [\App\Http\Controllers\UserController::class, 'update']);
 Route::get('user/destroy/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
 
 Route::get('file-upload', [\App\Http\Controllers\FileUploadController::class, 'index']);
 Route::post('file/upload', [\App\Http\Controllers\FileUploadController::class, 'upload'])->name('upload.file');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

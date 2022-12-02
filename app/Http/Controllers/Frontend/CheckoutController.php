@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\ProductStock;
 use App\Utils\Util;
-use DB;
+use DB, Auth;
 class CheckoutController extends Controller
 {
     public function checkout(Request $request)
@@ -19,11 +19,11 @@ class CheckoutController extends Controller
         try{
 
             $data = [];
-            $data['user_id'] = 1;
+            $data['user_id'] = Auth::id();
             $data['invoice_no'] = 'INV'.rand(1111111111,9999999999);
             $data['amount'] =  $request->total_price;
             $data['charge'] = 0;
-            $data['discount'] = $request->total_discount;
+            $data['discount'] = $request->total_discount ?? 0;
             $data['total'] = (float)(($request->total_price + $data['charge']) - $request->total_discount);
 
             $order = Order::create($data);

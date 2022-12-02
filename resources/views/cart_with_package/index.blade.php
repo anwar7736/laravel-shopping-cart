@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 @section('title', 'All Package Cart List')
 @section('content')
  <div class="container-fluid">

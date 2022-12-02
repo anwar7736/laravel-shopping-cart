@@ -21,6 +21,10 @@ $(document).ready(function(){
                     $('button.checkOutBtn2').attr('disabled', false);
                     toastr.error(res.msg);
                 }
+            },
+            error: function(err)
+            {
+                location.href = "/login";
             }
 
         });

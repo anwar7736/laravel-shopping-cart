@@ -11,13 +11,13 @@ class UserController extends Controller
 
     public function index()
     {
-        
+       
     }
 
 
     public function create()
     {
-        
+        return view('add-multlple-user');
     }
 
 
@@ -38,6 +38,42 @@ class UserController extends Controller
 
        try{
         User::create($validated->validated());
+
+        return response()->json(['success'=>true, 'msg' => 'User has been created']);
+       }
+       catch(\Exception $e)
+       {
+            \Log::info($e->getMessage());
+            return response()->json(['success'=>false, 'msg' => $e->getMessage()]);
+       }
+    }
+    
+    public function multipleInsert(Request $request)
+    {
+        $validated = Validator::make($request->all(),[
+            'name.*' => ['required', 'min:3'],
+            'email.*' => ['required', 'unique:users,email'],
+            'password.*' => ['required', 'min:8'],
+            'gender.*' => '',
+            'city.*' => '',
+        ]);
+
+        if($validated->fails())
+        {
+            return response()->json(['errors'=>$validated->errors()->all()]);
+        }
+
+       try{
+            for($count = 0; $count < count($request->name); $count++)
+            {
+                User::create([
+                    'name' => $request->name[$count],
+                    'email' => $request->email[$count],
+                    'password' => $request->password[$count],
+                    'gender' => $request->gender[$count],
+                    'city' => $request->city[$count]
+                ]);
+            }
 
         return response()->json(['success'=>true, 'msg' => 'User has been created']);
        }
@@ -102,6 +138,13 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
+
+        return response()->json(['success'=>true, 'msg' => 'User has been deleted'], 200);
+
+    }
+    public function multipleDelete(Request $request)
+    {
+        User::destroy($request->id);
 
         return response()->json(['success'=>true, 'msg' => 'User has been deleted'], 200);
 

@@ -48,6 +48,8 @@ class DataTableController extends Controller
                  $button .= "<button class='btn btn-sm btn-success edit' data-id='{$user->id}'>Edit</button>";
                  $button .="&nbsp;&nbsp;";
                  $button .= "<button class='btn btn-sm btn-danger delete' data-id='{$user->id}'>Delete</button>";
+                 $button .="&nbsp;&nbsp;";
+                 $button .= "<input type='checkbox' value='{$user->id}' class='user'>";
 
                 return $button;
             })

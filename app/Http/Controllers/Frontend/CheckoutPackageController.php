@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDetails;
 use App\Models\ProductStock;
 use App\Utils\Util;
-use DB, Cart;
+use DB, Cart, Auth;
 class CheckoutPackageController extends Controller
 {
     public function checkout(Request $request)
@@ -19,7 +19,7 @@ class CheckoutPackageController extends Controller
         try{
 
             $data = [];
-            $data['user_id'] = 1;
+            $data['user_id'] = Auth::id();
             $data['invoice_no'] = 'INV'.rand(1111111111,9999999999);
             $data['amount'] =  $request->total_price2;
             $data['charge'] = 0;
