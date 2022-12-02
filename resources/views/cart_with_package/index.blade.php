@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'All Package Cart List')
+@section('title', __('title.carts'))
 @section('content')
  <div class="container-fluid">
     <div class="table-responsive">

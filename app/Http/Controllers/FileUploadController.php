@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
+use Image;
 class FileUploadController extends Controller
 {
     public function index()
@@ -32,7 +33,8 @@ class FileUploadController extends Controller
             foreach($request->file as $file)
             {
                 $new_name =  rand().'.'.$file->extension();
-                $file->move(public_path('images'), $new_name);
+                $image = Image::make($file)->resize(1024, 768);
+                $image->save(public_path('images/'.$new_name));
             }
 
             return response()->json(['success' => true, 'msg'=> 'All file has been uploaded']);

@@ -25,6 +25,15 @@
         <a href="{{ route('products.index') }}" class="text-light ml-5" >Product List</a>
         Cart<a href="{{ route('cart.session.index') }}"><sup id="total_cart_item" class="badge bg-danger">{{total_cart_items() ?? '0'}}</sup></a>
         Cart2<a href="{{ route('cart.package.index') }}"><sup id="total_cart_item2" class="badge bg-danger">{{total_cart_items2() ?? '0'}}</sup></a>
+        <select  id="change-lang">
+            <option value="">Choose language</option>
+            <option value="en" {{session()->get('lang') === 'en' ? 'selected' : ''}}>English</option>
+            <option value="bn" {{session()->get('lang') === 'bn' ? 'selected' : ''}}>Bangla</option>
+            
+        </select>
+        <a href="{{ route('backup.run') }}" class="text-light ml-5" >Database Backup</a>
+        
+        
     </p>
     </div>
 

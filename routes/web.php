@@ -57,3 +57,30 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+//Cache clear
+Route::get('/clear-all', function(){
+    \Artisan::call('cache:clear');
+    \Artisan::call('route:clear');
+    \Artisan::call('view:clear');
+    \Artisan::call('config:clear');
+    \Artisan::call('config:cache');
+    session()->forget('lang');
+    dd("Application cache has been cleared!");
+    
+});
+//Database backup
+Route::get('/database-backup', function(){
+    \Artisan::call('backup:clean');
+    \Artisan::call('backup:run --only-files');
+    return response()->download(storage_path('app/backup-temp/temp.zip'));
+    // return back();
+    
+})->name('backup.run');
+
+Route::get('dom-pdf', function(){
+    $pdf = \PDF::loadView('pdf', ['name' => 'Anwar']);
+    return $pdf->download('myPDF.pdf');
+});

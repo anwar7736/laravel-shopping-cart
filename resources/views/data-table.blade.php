@@ -1,9 +1,10 @@
 @extends('layouts.master')
-@section('title', 'Laravel Yajra DataTables')
+@section('title', __('title.users'))
 @section('content')
 <div class="container-fluid">
 <div class="table-responsive">
     <div class="filter-section row">
+        
         <div class="col-md-3">
             <label class="text-light" for="city">Filter By City</label>
             <select name="city" id="city" class="form-control">
