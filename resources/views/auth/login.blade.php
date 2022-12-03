@@ -63,6 +63,15 @@
                                     </a>
                                 @endif
                             </div>
+                            <div class="col-md-8 offset-md-4 mt-2">
+                                <a href="{{ route('login.facebook') }}" class="btn btn-danger btn-block">Login with Facebook</a><br/>
+                            </div>                      
+                            <div class="col-md-8 offset-md-4 mt-2">
+                                <a href="{{ route('login.google') }}" class="btn btn-success btn-block">Login with Google</a><br/>
+                            </div>                            
+                            <div class="col-md-8 offset-md-4 mt-2">
+                                <a href="{{ route('login.github') }}" class="btn btn-dark btn-block">Login with Github</a><br/>
+                            </div>
                         </div>
                     </form>
                 </div>

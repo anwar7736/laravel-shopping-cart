@@ -31,7 +31,6 @@ Route::group(['as' => 'checkout.', 'middleware'=>'auth'],function(){
 });
 
 //Yajra Datatables with filter
-Route::get('data-tables', [\App\Http\Controllers\DataTableController::class, 'viewAll'])->name('data-table.show');
 
 #Export
 Route::get('export-to-excel', [\App\Http\Controllers\DataTableController::class, 'ExportToExcel'])->name('excel.export');
@@ -44,6 +43,8 @@ Route::post('multiple-insert', [\App\Http\Controllers\UserController::class, 'mu
 
 Route::post('multiple-delete', [\App\Http\Controllers\UserController::class, 'multipleDelete'])->name('delete.multiple');
 
+Route::post('restore-data', [\App\Http\Controllers\UserController::class, 'multipleRestore'])->name('restore.multiple');
+
 Route::post('user/update/{id}', [\App\Http\Controllers\UserController::class, 'update']);
 Route::get('user/destroy/{id}', [\App\Http\Controllers\UserController::class, 'destroy']);
 
@@ -54,9 +55,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
@@ -68,15 +67,16 @@ Route::get('/clear-all', function(){
     \Artisan::call('config:clear');
     \Artisan::call('config:cache');
     session()->forget('lang');
-    dd("Application cache has been cleared!");
+    // dd("Application cache has been cleared!");
+    return back();
     
-});
+})->name('clear.cache');
 //Database backup
 Route::get('/database-backup', function(){
     \Artisan::call('backup:clean');
     \Artisan::call('backup:run --only-files');
-    return response()->download(storage_path('app/backup-temp/temp.zip'));
-    // return back();
+    // return response()->download(storage_path('app/Laravel/backup_'.date('Y-m-d')));
+    return back();
     
 })->name('backup.run');
 
@@ -84,3 +84,18 @@ Route::get('dom-pdf', function(){
     $pdf = \PDF::loadView('pdf', ['name' => 'Anwar']);
     return $pdf->download('myPDF.pdf');
 });
+
+
+//Facebook Login
+Route::get('facebook/login', [\App\Http\Controllers\Auth\LoginController::class, 'facebook'])->name('login.facebook');
+Route::get('facebook/callback', [\App\Http\Controllers\Auth\LoginController::class, 'facebookLogin']);
+
+//Google Login
+Route::get('google/login', [\App\Http\Controllers\Auth\LoginController::class, 'google'])->name('login.google');
+Route::get('google/callback', [\App\Http\Controllers\Auth\LoginController::class, 'googleLogin']);
+
+//Github Login
+Route::get('github/login', [\App\Http\Controllers\Auth\LoginController::class, 'github'])->name('login.github');
+Route::get('github/callback', [\App\Http\Controllers\Auth\LoginController::class, 'githubLogin']);
+
+Route::view('upload-multiple', 'multiple-file-upload');

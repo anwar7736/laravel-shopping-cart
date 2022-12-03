@@ -21,7 +21,7 @@
 <body>
     <div class="text-center mt-3 cart-total-header">
         <p class="total_cart">
-        <a href="{{ route('data-table.show') }}" class="text-light ml-5" >User List</a>
+        <a href="{{ route('user.index') }}" class="text-light ml-5" >User List</a>
         <a href="{{ route('products.index') }}" class="text-light ml-5" >Product List</a>
         Cart<a href="{{ route('cart.session.index') }}"><sup id="total_cart_item" class="badge bg-danger">{{total_cart_items() ?? '0'}}</sup></a>
         Cart2<a href="{{ route('cart.package.index') }}"><sup id="total_cart_item2" class="badge bg-danger">{{total_cart_items2() ?? '0'}}</sup></a>
@@ -32,6 +32,7 @@
             
         </select>
         <a href="{{ route('backup.run') }}" class="text-light ml-5" >Database Backup</a>
+        <a href="{{ route('clear.cache') }}" class="text-light ml-5" >Cache Clear</a>
         
         
     </p>

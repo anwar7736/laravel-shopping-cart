@@ -38,6 +38,15 @@
         </div>        
         <div class="col-md-1 mt-4">
             <button class="btn btn-light form-control clearDate">Clear</button>
+        </div>        
+        <div class="col-md-2 mt-4">
+        <label class="text-light" for="user-status">Filter By User Status</label>
+            <select name="status" id="user-status" class="form-control">
+                <option value="" disabled selected>Choose User Status</option>
+                <option value="all">All User</option>
+                <option value="current">Current User</option>
+                <option value="deleted">Deleted User</option>
+            </select>
         </div>
     </div><br>
     <div class="row">
@@ -76,6 +85,7 @@
                         Action 
                         <label><input type="checkbox" id="all" /> All</label>
                         <button class="btn btn-danger btn-sm deleteMultiple">Delete</button> 
+                        <button class="btn btn-warning btn-sm restoreMultiple">Restore</button> 
                     </th>
                 </tr>
             </thead>

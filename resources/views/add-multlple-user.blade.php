@@ -21,7 +21,7 @@
                 <tbody>
 
                 </tbody>
-                <div align="right">
+                <div align="right" class="mb-2">
                     <button type="submit" class="btn btn-primary submitBtn">Submit</button>
                 </div>
            
