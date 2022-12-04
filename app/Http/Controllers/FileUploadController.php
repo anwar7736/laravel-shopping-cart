@@ -40,4 +40,18 @@ class FileUploadController extends Controller
             return response()->json(['success' => true, 'msg'=> 'All file has been uploaded']);
         }
     }
+
+    public function viewFile()
+    {
+        return view('multiple-file-upload');
+    }
+
+    public function uploadMultipleFile(Request $request)
+    {
+        
+        foreach($request->myFile as $file)
+        {
+           $file->store('public/uploads');
+        }
+    }
 }

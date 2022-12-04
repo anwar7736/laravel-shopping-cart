@@ -98,4 +98,5 @@ Route::get('google/callback', [\App\Http\Controllers\Auth\LoginController::class
 Route::get('github/login', [\App\Http\Controllers\Auth\LoginController::class, 'github'])->name('login.github');
 Route::get('github/callback', [\App\Http\Controllers\Auth\LoginController::class, 'githubLogin']);
 
-Route::view('upload-multiple', 'multiple-file-upload');
+Route::get('upload-multiple', [\App\Http\Controllers\FileUploadController::class, 'viewFile']);
+Route::post('upload-multiple', [\App\Http\Controllers\FileUploadController::class, 'uploadMultipleFile']);
