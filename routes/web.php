@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
+use App\Mail\OTPMail;
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -100,3 +102,45 @@ Route::get('github/callback', [\App\Http\Controllers\Auth\LoginController::class
 
 Route::get('upload-multiple', [\App\Http\Controllers\FileUploadController::class, 'viewFile']);
 Route::post('upload-multiple', [\App\Http\Controllers\FileUploadController::class, 'uploadMultipleFile']);
+
+Route::get('/set_otp/{email}', function(Request $request, $email){
+    $otp = rand(111111,666666);
+    date_default_timezone_set("Asia/Dhaka");
+    session()->put('otp', [
+        'email' => $email,
+        'otp' => $otp,
+        'time' => Carbon::now()->addMinutes(3),
+    ]);
+
+    return redirect()->route('send-mail', compact('email', 'otp'));
+});
+
+Route::get('/get_otp', function(){
+    dd(session()->get('otp'));
+});
+
+Route::get('/check_otp/{otp}', function($otp){
+    $session = session()->get('otp', []);
+    if($session && $otp == $session['otp'] && $session['time'] > Carbon::now())
+    {
+        $user = \App\Models\User::where('email', $session['email'])->first();
+        if(!$user)
+        {
+            \App\Models\User::create([
+                'name' => '',
+                'email' => $session['email']
+            ]);
+        }
+
+        session()->put('otp', []);
+        print("<br/>Login Success");
+    }
+    else {
+        dd('OTP is invalid!');
+    }
+});
+
+Route::get('send-mail', function(){
+    \Mail::to(request()->get('email'))->send(new OTPMail(request()->get('otp')));
+    print("<br/>OTP has been send to ".request()->get('email'));
+})->name('send-mail');
