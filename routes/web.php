@@ -144,3 +144,5 @@ Route::get('send-mail', function(){
     \Mail::to(request()->get('email'))->send(new OTPMail(request()->get('otp')));
     print("<br/>OTP has been send to ".request()->get('email'));
 })->name('send-mail');
+
+Route::resource('attendance', \App\Http\Controllers\AttendanceController::class);

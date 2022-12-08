@@ -30,6 +30,17 @@
     <script src="{{ asset('js/jquery.form.js') }}"></script>
     <script src="{{ asset('js/axios.min.js') }}"></script>
     <script>
+        let type = "{{ Session::get('type') }}";
+        let message = "{{ Session::get('msg') }}";
+        switch(type)
+        {
+            case true : 
+            toastr.success(message) 
+            break;
+            case false : 
+            toastr.error(message)
+            break;
+        }
         $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
