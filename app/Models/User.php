@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->attributes['password'] = Hash::make($value);
     }
+
+    public function answers()
+    {
+        return $this->hasMany(ExamResult::class);
+    }
 }

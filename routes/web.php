@@ -146,3 +146,10 @@ Route::get('send-mail', function(){
 })->name('send-mail');
 
 Route::resource('attendance', \App\Http\Controllers\AttendanceController::class);
+
+Route::group(['middleware'=>'is_allowed', 'controller'=>\App\Http\Controllers\ExamController::class], function(){
+    Route::get('/mcq_test','index');
+    Route::post('/mcq_test', 'store')->name('mcq.test'); 
+});
+
+Route::get('/exam_result/{id}', [\App\Http\Controllers\ExamController::class, 'result'])->name('exam_result');
