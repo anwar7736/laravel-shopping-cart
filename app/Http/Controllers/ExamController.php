@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\ExamResult;
+use Auth;
 
 class ExamController extends Controller
 {
@@ -38,6 +39,11 @@ class ExamController extends Controller
 
     public function result($id)
     {
+        if(Auth::id() != $id)
+        {   
+            return "<h2 style='color:red; text-align:center'>Sorry! you can't see another result</h2>";
+        }
+
         $results = ExamResult::with('question')->where('user_id', $id)->get();
         $score = 0;
         foreach($results as $result)
