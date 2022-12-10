@@ -153,3 +153,9 @@ Route::group(['middleware'=>'is_allowed', 'controller'=>\App\Http\Controllers\Ex
 });
 
 Route::get('/exam_result/{id}', [\App\Http\Controllers\ExamController::class, 'result'])->name('exam_result');
+
+Route::controller(\App\Http\Controllers\ResultController::class)->group(function(){
+    Route::get('/form', 'index');
+    Route::post('/get_result', 'getResult')->name('form.result'); 
+    Route::get('/result', 'resultDetails')->name('result'); 
+});
