@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Mail\OTPMail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,7 +69,6 @@ Route::get('/clear-all', function(){
     \Artisan::call('view:clear');
     \Artisan::call('config:clear');
     \Artisan::call('config:cache');
-    session()->forget('lang');
     // dd("Application cache has been cleared!");
     return back();
     
@@ -158,4 +158,11 @@ Route::controller(\App\Http\Controllers\ResultController::class)->group(function
     Route::get('/form', 'index');
     Route::post('/get_result', 'getResult')->name('form.result'); 
     Route::get('/result', 'resultDetails')->name('result'); 
+});
+
+//Query builder
+
+Route::get('/users', function(){
+     
+
 });

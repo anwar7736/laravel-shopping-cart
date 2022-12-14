@@ -10,12 +10,18 @@
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/sweetalert2.min.css') }}"/>
+    <style>
+        .goog-te-banner-frame{
+            display:none;
+        }
+    </style>
     @stack('css')
 </head>
 <body class="bg-success">
     @include('layouts.header')
     @yield('content')
     @include('layouts.footer')
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
@@ -45,7 +51,12 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         }
-    });
+
+      
+            });  
+            function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
 
     </script>
     @stack('js')

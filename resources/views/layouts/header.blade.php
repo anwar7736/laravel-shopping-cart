@@ -31,6 +31,7 @@
             <option value="bn" {{session()->get('lang') === 'bn' ? 'selected' : ''}}>Bangla</option>
             
         </select>
+        <div id="google_translate_element"></div>
         <a href="{{ route('backup.run') }}" class="text-light ml-5" >Database Backup</a>
         <a href="{{ route('clear.cache') }}" class="text-light ml-5" >Cache Clear</a>
         
