@@ -13,20 +13,23 @@ class CreateStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('f_name');
-            $table->string('m_name');
-            $table->integer('roll');
-            $table->integer('reg');
-            $table->foreignId('board_id')->constrained('boards')->onDelete('cascade');
-            $table->string('group');
-            $table->string('type');
-            $table->string('dob');
-            $table->foreignId('institute_id')->constrained('institutes')->onDelete('cascade');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('students'))
+        {
+            Schema::create('students', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->string('f_name');
+                $table->string('m_name');
+                $table->integer('roll');
+                $table->integer('reg');
+                $table->foreignId('board_id')->constrained('boards')->onDelete('cascade');
+                $table->string('group');
+                $table->string('type');
+                $table->string('dob');
+                $table->foreignId('institute_id')->constrained('institutes')->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

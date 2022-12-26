@@ -16,4 +16,15 @@ class Product extends Model
         return $this->hasOne(ProductStock::class);
     }
 
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+        
+    }
+    
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categoryable');
+    }
+
 }

@@ -160,9 +160,4 @@ Route::controller(\App\Http\Controllers\ResultController::class)->group(function
     Route::get('/result', 'resultDetails')->name('result'); 
 });
 
-//Query builder
 
-Route::get('/users', function(){
-     
-
-});
