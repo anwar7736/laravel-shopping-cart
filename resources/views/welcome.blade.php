@@ -37,30 +37,7 @@
             @endif
             
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-                <table style="color:red">
-                        <tr>
-                            {{$users->count()}}
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Roles</th>
-                        </tr>
-                        @forelse($users as $user)
-                        <tr>
-                            <td>{{$user->name}}</td>
-                            <td>{{$user->phone->phone}}</td>
-                            <td>
-                                @foreach($user->roles as $role)
-                                @if($loop->index)
-                                    |
-                                @endif
-                                    {{$role->name}} {{$role->pivot->created_at->diffForHumans()}}
-                                @endforeach
-                            </td>                            
-                        </tr>
-                        @empty
-                        <center>No data found</center>
-                        @endforelse
-                </table>
+                
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
                     <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">
                         <g clip-path="url(#clip0)" fill="#EF3B2D">

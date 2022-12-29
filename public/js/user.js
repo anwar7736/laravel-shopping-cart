@@ -185,6 +185,7 @@ $(function(){
 
     $("#addUserForm").submit(function(e){
         e.preventDefault();
+        $(".error").text('');
         const data = $(this).serialize();
         const url = $(this).attr('action');
         const method = $(this).attr('method');
@@ -243,6 +244,12 @@ $(function(){
                     toastr.error(res.msg);
                 }
             },
+            error: function(res)
+            {
+                $.each(res.responseJSONTest, function(name, error){
+                    $(document).find(`[name="${name}"]`).after(`<span class='text-danger error'>${error}</span>`);
+                });
+            }
         });
 
         //Update functionality

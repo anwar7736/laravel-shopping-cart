@@ -177,6 +177,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\MyServiceProvider::class,
         
 
     ],
@@ -237,6 +238,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Anwar' => \App\Facades\TestFacades::class,
 
     ],
 

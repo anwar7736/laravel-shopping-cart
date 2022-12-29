@@ -34,3 +34,18 @@ Route::get('/vote-details/{id}', function($id){
 
         return view('votes.details', compact('details'));
 })->name('vote.details');
+
+Route::get('/test', function(){
+
+      dd(Anwar::currentTime());
+});
+
+Route::view('dropzone_file_upload', 'dropzone_file_upload');
+
+Route::post("/dropzone-upload", function(Request $request){
+      $image = $request->file('file');
+      $new_name = rand().'.'.$image->extension();
+      $image->move(public_path('dropzone'), $new_name);
+
+
+})->name('dropzone.upload');
